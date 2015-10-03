@@ -1,7 +1,7 @@
 ########CHAPTER 3 FORECASTING STRATEGIES 
 #Chap.3.1. Leading variables and Associated variables 
-#www <- "http://www.massey.ac.nz/~pscowper/ts/ApprovActiv.dat" #OLD link does not seem to work anymore
-www <- "http://staff.elena.aut.ac.nz/Paul-Cowpertwait/ts/Maine.dat"
+#www <- "http://www.massey.ac.nz/~pscowper/ts/ApprovActiv.dat" #OLD link does not seem to work anymore - noted by https://github.com/nenouchkaa
+www <- "http://staff.elena.aut.ac.nz/Paul-Cowpertwait/ts/Maine.dat" #NEW link - suggested by https://github.com/mqshen  
 Build.dat<-read.table(www, header=T); attach(Build.dat)
 App.ts<-ts(Approvals, start=c(1996,1), frequency=4)
 Act.ts<-ts(Activity, start=c(1996,1), frequency=4)
@@ -139,15 +139,6 @@ plot(AP.hw) #Fig.3.12.
 AP.hw$alpha; AP.hw$beta; AP.hw$gamma
 AP.predict<-predict(AP.hw, n.ahead=4*12) # since montly data is predicted for 4 years
 ts.plot(AP, AP.predict, lty=1:2) #Fig.3.13. 
-
-
-
-
-
-
-
-
-
 
 
 
