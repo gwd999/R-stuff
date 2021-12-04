@@ -47,11 +47,11 @@ print(acf(ts.union(app.ran.ts, act.ran.ts)))
 #to yearly sales of VCRs in the U.S. betwenn 1980 and 1989 (Bass website) using nls() FUNCTION (non-linear least squares)
 #cumsum() FUNCTION is usefull for monitoring changes in the mean level of the proecss. 
 
-T79<-1:10
-Tdelt<-(1:100)/10
-Sales<-c(840, 1470, 2110, 4000, 7590, 10950, 10530, 9470, 7790, 5890)
-Cusales<-cumsum(Sales)
-Bass.nls<-nls(Sales ~ M*( ((P+Q)^2/P)*exp(-(P+Q)*T79)) / (1+(Q/P)*exp(-(P+Q)*T79))^2, 
+T79 <- 1:10
+Tdelt <- (1:100)/10
+Sales <- c(840, 1470, 2110, 4000, 7590, 10950, 10530, 9470, 7790, 5890)
+Cusales <- cumsum(Sales)
+Bass.nls <- nls(Sales ~ M*( ((P+Q)^2/P)*exp(-(P+Q)*T79)) / (1+(Q/P)*exp(-(P+Q)*T79))^2, 
 				start=list(M=60630, P=0.03, Q=0.38))
 summary(Bass.nls)
 #The final rounded estimates for m, p, q are 68000 (6.798e+04), 0.0066 (6.594e-03) and 0.64 (6.381e-01) 
@@ -91,9 +91,9 @@ points(T79, Cusales)
 #In the case of assumption of no systematic trend and no seasonal effects forecasts made at time n for any lead 
 #time are just the estimated mean at time n.      
 #Example: Complaints to a motoring organisation 
-www<-"http://www.massey.ac.nz/~pscowper/ts/motororg.dat" 
-Motor.dat<-read.table(www, header=T); attach(Motor.dat)  
-Comp.ts<-ts(complaints, start=c(1996,1), freq=12) 
+www <- "http://www.massey.ac.nz/~pscowper/ts/motororg.dat" 
+Motor.dat <- read.table(www, header=T); attach(Motor.dat)  
+Comp.ts <- ts(complaints, start = c(1996,1), freq = 12) 
 plot(Comp.ts, xlab="Time / months", ylab="Complaints") #Fig.3.7.
 #No evidence of trend or seasonal effect => reasonable to use exponential smoothing
 #Expo-Smoothing is a special case of the Holt-Winters algorithm, with the parameters set to 0;  
@@ -118,10 +118,10 @@ Comp.hw2$SSE
 #minimising the one-step-ahead prediction errors (SS1PE). 
 
 #Example: Sales of Australian wine 
-www<-"http://www.massey.ac.nz/~pscowper/ts/wine.dat"
-wine.dat<-read.table(www, header=T); attach(wine.dat) 
-sweetw.ts<-ts(sweetw, start=c(1980,1), freq=12)
-plot(sweetw.ts, xlab="Time (months)", ylab="Sales (1000 litres)") # Fig.3.9. - Sales of AUS sweet white wine 
+www <- "http://www.massey.ac.nz/~pscowper/ts/wine.dat"
+wine.dat <- read.table(www, header = TRUE); attach(wine.dat) 
+sweetw.ts <- ts(sweetw, start = c(1980,1), freq=12)
+plot(sweetw.ts, xlab = "Time (months)", ylab="Sales (1000 litres)") # Fig.3.9. - Sales of AUS sweet white wine 
 sweetw.hw<-HoltWinters(sweetw.ts, seasonal="mult") 
 sweetw.hw; sweetw.hw$coef; sweetw.hw$SSE
 #Coefficients point to the fact that the level and seasonal variation adapt rapidly, whereas the trend (beta=0) is slow to do so
@@ -132,113 +132,10 @@ sweetw.hw2<-HoltWinters(sweetw.ts, seasonal="mult", alpha=0.2, beta=.2, gamma=.2
 sweetw.hw2; sweetw.hw2$coef; sweetw.hw2$SSE
 #Example: Four year ahead forecasts for the air passenger data 
 data(AirPassengers) 
-AP<-AirPassengers
+AP <- AirPassengers
 AP.hw<-HoltWinters(AP, seasonal="mult")
 plot(AP.hw) #Fig.3.12.
 AP.hw$alpha; AP.hw$beta; AP.hw$gamma
 AP.predict<-predict(AP.hw, n.ahead=4*12) # since montly data is predicted for 4 years
 ts.plot(AP, AP.predict, lty=1:2) #Fig.3.13. 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
- 
-
-
 
