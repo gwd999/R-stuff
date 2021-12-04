@@ -1,6 +1,7 @@
 ########CHAPTER 3 FORECASTING STRATEGIES 
 #Chap.3.1. Leading variables and Associated variables 
-www<-"http://www.massey.ac.nz/~pscowper/ts/ApprovActiv.dat"
+#www <- "http://www.massey.ac.nz/~pscowper/ts/ApprovActiv.dat" #OLD link does not seem to work anymore - noted by https://github.com/nenouchkaa
+www <- "http://staff.elena.aut.ac.nz/Paul-Cowpertwait/ts/Maine.dat" #NEW link - suggested by https://github.com/mqshen  
 Build.dat<-read.table(www, header=T); attach(Build.dat)
 App.ts<-ts(Approvals, start=c(1996,1), frequency=4)
 Act.ts<-ts(Activity, start=c(1996,1), frequency=4)
@@ -9,7 +10,7 @@ ts.plot(App.ts, Act.ts, lty=c(1,3)) #Fig.3.1. shows Building approvals (solid li
 #CROSS-CORRELATION 
 #Take two ts for variables x and y, that are stationary in the mean and the variance.  
 #The variables may each be serially correlated and correlated with each other at different time lags. 
-#The combined model is second-order-stationary if all these correlations deoend only on the "lag", and then we can 
+#The combined model is second-order-stationary if all these correlations depend only on the "lag", and then we can 
 #define the Cross-Covariance-function (ccvf) as a function of the lag. 
 #ccvf=E[(x(t+k)-mu(x))*(y(t)-mu(y)]
 
@@ -33,15 +34,15 @@ ccf(app.ran.ts, act.ran.ts) #Fig.3.4.
 print(acf(ts.union(app.ran.ts, act.ran.ts)))
 
 #Chap.3.3. Bass model (by Frank Bass - 1969) 
-#Model statess that the 
-#Total number of people that bought a product at time t depends on
+#The Model states that the 
+#total number of people that bought a product at time t depends on
 #1. the total number of people who eventually buy the product->m 
 #2. the coefficient of innovation->p 
 #3. the coefficient of imitation->q 
 #(One) interpretation of the model: 
-#The time from product launch until prchase is assumed to have a probability distribution, that ca be parameterised  
+#The time from product launch until purchase is assumed to have a probability distribution, that can be parameterised  
 #in terms of p and q. 
-#The time to peak is then given with: t(peak)=[log(q)-log(p)]/(p+q)
+#The time to peak is then given by: t(peak)=[log(q)-log(p)]/(p+q)
 #EXAMPLE:
 #Showing a typical Bass curve by fitting sales per unit of time equation (Eq. 3.12 - implemented below within the nls FUNCTION) 
 #to yearly sales of VCRs in the U.S. betwenn 1980 and 1989 (Bass website) using nls() FUNCTION (non-linear least squares)
@@ -82,7 +83,8 @@ points(T79, Cusales)
 #chages in the mean level were expected to be large by comparison with sigma. 
 #alpha near 0 = highly smoothed estimates - takes little account of the most recent observation. 
 #Typical compromise figure for alpha is 0.2, since in practice we typically expect the change in the mean 
-#between t-1 and t to be smaller than sigma. R can provide estimates for alpha - by minimisig the the sum of squared one-step-ahead prediction errors.  
+#between t-1 and t to be smaller than sigma. R can provide estimates for alpha - by minimisig the sum of squared 
+#one-step-ahead prediction errors.  
 
 #However calculating aplha the R way is not necessarily the best way - if ts is long and the mean changed little, 
 #the value of alpha will be small. Small alpha leads to slow response times to unexpected changes - 
@@ -138,15 +140,6 @@ plot(AP.hw) #Fig.3.12.
 AP.hw$alpha; AP.hw$beta; AP.hw$gamma
 AP.predict<-predict(AP.hw, n.ahead=4*12) # since montly data is predicted for 4 years
 ts.plot(AP, AP.predict, lty=1:2) #Fig.3.13. 
-
-
-
-
-
-
-
-
-
 
 
 
